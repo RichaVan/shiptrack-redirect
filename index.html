@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Open ShipTrack</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open ShipTrack Link</title>
     <script>
         function getQueryParam(param) {
             var urlParams = new URLSearchParams(window.location.search);
@@ -9,29 +11,53 @@
         }
 
         function openApp() {
-            var trackId = getQueryParam("id");  // Get 'id' from URL
-            if (!trackId) {
-                trackId = "default"; // Fallback ID if none is provided
-            }
-            var appUrl = "shiptrack://track?id=" + trackId;  // Create deep link
+            var trackId = getQueryParam("id") || "default"; // Get 'id' from URL or use default
+
+            var appUrl = "shiptrack://track?id=" + trackId; // Deep link format
+            var playStoreUrl = "https://play.google.com/store/apps/details?id=ric.yaks.shiptrackelatitdloghretpwtyruik"; // Update with your app package name
 
             var now = new Date().getTime();
-            window.location.href = appUrl;  
+            window.location.href = appUrl; // Try opening app
 
             setTimeout(function () {
                 var elapsed = new Date().getTime() - now;
-                if (elapsed < 2000) {  
-                    window.location.href = "https://play.google.com/store/apps/details?id=ric.yaks.shiptrackelatitdloghretpwtyruik";
+                if (elapsed < 2000) { // If the app didn't open, redirect to Play Store
+                    window.location.href = playStoreUrl;
                 }
             }, 1500);
         }
+
+        // Auto open app when page loads
+        window.onload = function () {
+            openApp();
+        };
     </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .open-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h2>Open ShipTrack</h2>
     <p>If the app is installed, it will open. If not, you'll be redirected to the Play Store.</p>
-    <button onclick="openApp()" style="padding: 10px 20px; font-size: 18px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        Open ShipTrack
-    </button>
+    <button class="open-btn" onclick="openApp()">Open ShipTrack</button>
 </body>
 </html>
