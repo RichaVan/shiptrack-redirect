@@ -1,55 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Ship Tracker & Finder</title>
-    <script>
-        function getQueryParam(param) {
-            var urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Ship Tracker & Finder</title>
+  <script>
+    function getQueryParam(param) {
+      var urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
 
-        function openApp() {
-            var trackId = getQueryParam("id") || "default";
-            var appUrl = "shiptrack://track?id=" + trackId;
-            var playStoreUrl = "https://play.google.com/store/apps/details?id=ric.yaks.shiptrackelatitdloghretpwtyruik";
-            
-            var now = new Date().getTime();
-            window.location.href = appUrl;
-            
-            setTimeout(function () {
-                var elapsed = new Date().getTime() - now;
-                if (elapsed < 2000) {
-                    window.location.href = playStoreUrl;
-                }
-            }, 1500);
+    function openApp() {
+      var trackId = getQueryParam("id") || "default";
+      var appUrl = "shiptrack://track?id=" + trackId;
+
+      // Your store URLs
+      var playStoreUrl = "https://play.google.com/store/apps/details?id=ric.yaks.shiptrackelatitdloghretpwtyruik";
+      var appStoreUrl = "https://apps.apple.com/app/6741560761"; 
+      var isAndroid = /android/i.test(navigator.userAgent);
+      var isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+      var now = new Date().getTime();
+      window.location.href = appUrl;
+
+      setTimeout(function () {
+        var elapsed = new Date().getTime() - now;
+        if (elapsed < 2000) {
+          if (isAndroid) {
+            window.location.href = playStoreUrl;
+          } else if (isiOS) {
+            window.location.href = appStoreUrl;
+          }
         }
-        
-        window.onload = function () {
-            openApp();
-        };
-    </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        h2 {
-            color: #0f0642;
-        }
-        p {
-            color: black;
-        }
-        .loading {
-            margin-top: 20px;
-        }
-    </style>
+      }, 1500);
+    }
+
+    window.onload = function () {
+      openApp();
+    };
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    h2 {
+      color: #0f0642;
+    }
+    p {
+      color: black;
+    }
+    .loading {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <h2>My Ship Tracker & Finder</h2>
-    <p>Please wait...</p>
-    <img class="loading" src="https://i.gifer.com/ZZ5H.gif" alt="Loading...">
+  <h2>My Ship Tracker & Finder</h2>
+  <p>Please wait...</p>
+  <img class="loading" src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." />
 </body>
 </html>
