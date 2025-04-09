@@ -5,40 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Ship Tracker & Finder</title>
   <script>
-    function getQueryParam(param) {
-      var urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
+  function getQueryParam(param) {
+    var urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
 
-    function openApp() {
-      var trackId = getQueryParam("id") || "default";
-      var appUrl = "shiptrack://track?id=" + trackId;
+  function openApp() {
+    var trackId = getQueryParam("id") || "default";
+    var appUrl = "shiptrack://track?id=" + trackId;
 
-      // Your store URLs
-      var playStoreUrl = "https://play.google.com/store/apps/details?id=ric.yaks.shiptrackelatitdloghretpwtyruik";
-      var appStoreUrl = "https://apps.apple.com/app/6741560761"; 
-      var isAndroid = /android/i.test(navigator.userAgent);
-      var isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    var playStoreUrl = "https://play.google.com/store/apps/details?id=ric.yaks.shiptrackelatitdloghretpwtyruik";
+    var appStoreUrl = "https://apps.apple.com/app/id6741560761"; 
 
-      var now = new Date().getTime();
-      window.location.href = appUrl;
+    var isAndroid = /android/i.test(navigator.userAgent);
+    var isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    var redirected = false;
 
-      setTimeout(function () {
-        var elapsed = new Date().getTime() - now;
-        if (elapsed < 2000) {
-          if (isAndroid) {
-            window.location.href = playStoreUrl;
-          } else if (isiOS) {
-            window.location.href = appStoreUrl;
-          }
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        redirected = true;
+      }
+    });
+
+    window.location.href = appUrl;
+
+    setTimeout(function () {
+      if (!redirected) {
+        if (isAndroid) {
+          window.location.href = playStoreUrl;
+        } else if (isiOS) {
+          window.location.href = appStoreUrl;
+        } else{
+          window.location.href = appStoreUrl;
         }
-      }, 1500);
-    }
+      }
+    }, 2500); 
+  }
 
-    window.onload = function () {
-      openApp();
-    };
-  </script>
+  window.onload = function () {
+    openApp();
+  };
+</script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
