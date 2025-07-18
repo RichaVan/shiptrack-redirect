@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "ric.yaks.shiptrackelatitdloghretpwtyruik",
+      "sha256_cert_fingerprints": [
+        "07:7B:29:17:0D:F9:AF:A1:8B:53:05:D7:0A:FE:64:DC:D5:68:3B:FA:65:3B:42:0F:C6:61:CB:DC:DA:5C:E8:1F"
+      ]
+    }
+  }
+]
